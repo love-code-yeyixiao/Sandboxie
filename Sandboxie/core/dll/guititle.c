@@ -291,6 +291,7 @@ _FX int Gui_FixTitleW(HWND hWnd, WCHAR *lpWindowTitle, int len)
 {
     if (len >= (int)Gui_TitleSuffixW_len * 2 &&
                                             Gui_ShouldCreateTitle(hWnd)) {
+
         if (wmemcmp(lpWindowTitle, &Gui_TitleSuffixW[1], 3) == 0) {
             len -= 4;
             wmemmove(lpWindowTitle, lpWindowTitle + 4, len);
@@ -325,6 +326,7 @@ _FX int Gui_FixTitleA(HWND hWnd, UCHAR *lpWindowTitle, int len)
 {
     if (len >= (int)Gui_TitleSuffixA_len * 2 &&
                                             Gui_ShouldCreateTitle(hWnd)) {
+
         if (memcmp(lpWindowTitle, &Gui_TitleSuffixA[1], 3) == 0) {
             len -= 4;
             memmove(lpWindowTitle, lpWindowTitle + 4, len);
