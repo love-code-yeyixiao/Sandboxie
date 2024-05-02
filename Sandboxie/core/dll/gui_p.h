@@ -57,7 +57,7 @@
 #define WM_DDE_LAST         (WM_DDE_FIRST+8)
 
 #define GET_WIN_API(name, lib) \
-    P_##name name = Ldr_GetProcAddrNew(lib, #name, #name); \
+    P_##name name = Ldr_GetProcAddrNew(lib, L#name, #name); \
     if(!name) return NULL;
 
 //---------------------------------------------------------------------------
@@ -940,7 +940,6 @@ BOOLEAN Ole_DoDragDrop(HWND hWnd, WPARAM wParam, LPARAM lParam);
 
 BOOLEAN Gui_InitMisc(HMODULE module);
 
-static void SetDesktop();
 
 //---------------------------------------------------------------------------
 

@@ -543,6 +543,7 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 		pTmplBtnMenu->addAction(tr("Add %1 Template").arg(CTemplateWizard::GetTemplateLabel((CTemplateWizard::ETemplateType)i)), this, SLOT(OnTemplateWizard()))->setData(i);
 	ui.btnAddTemplate->setPopupMode(QToolButton::MenuButtonPopup);
 	ui.btnAddTemplate->setMenu(pTmplBtnMenu);
+	connect(ui.btnOpenTemplate, SIGNAL(clicked(bool)), this, SLOT(OnOpenTemplate()));
 	connect(ui.btnDelTemplate, SIGNAL(clicked(bool)), this, SLOT(OnDelTemplates()));
 	connect(ui.chkScreenReaders, SIGNAL(clicked(bool)), this, SLOT(OnScreenReaders()));
 	//
@@ -1080,7 +1081,7 @@ void COptionsWindow::showTab(const QString& Name)
 	else
 		m_pStack->setCurrentWidget(pWidget);
 
-	SafeShow(this);
+	CSandMan::SafeShow(this);
 }
 
 void COptionsWindow::SetProgramItem(QString Program, QTreeWidgetItem* pItem, int Column, const QString& Suffix, bool bList)

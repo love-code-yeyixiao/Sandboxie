@@ -246,7 +246,6 @@ static HWND Gui_CreateWindowExA(
     HINSTANCE hInstance,
     LPVOID lpParam);
 
-
 static HWND Gui_CreateWindowExW(
     DWORD dwExStyle,
     void *lpClassName,
@@ -373,9 +372,9 @@ _FX BOOLEAN Gui_Init(HMODULE module)
 
     const UCHAR *ProcName;
 
-    Gui_UseProtectScreen = SbieApi_QueryConfBool(NULL, L"IsProtectScreen", FALSE);
+    Gui_UseProtectScreen = SbieApi_QueryConfBool(NULL, L"CoverBoxedWindows", FALSE);
 
-    Gui_UseBlockCapture = SbieApi_QueryConfBool(NULL, L"IsBlockCapture", FALSE);
+    Gui_UseBlockCapture = SbieApi_QueryConfBool(NULL, L"BlockScreenCapture", FALSE);
     if (Gui_UseBlockCapture)
         Gdi_InitDCCache();
 
@@ -936,6 +935,24 @@ _FX BOOLEAN Gui_ConnectToWindowStationAndDesktop(HMODULE User32)
         return FALSE;
     }
 
+    if (SbieApi_QueryConfBool(NULL, L"OpenWndStation", FALSE)) {
+
+        static BOOLEAN Connected = FALSE;
+        if (Connected)
+            return TRUE;
+
+        ULONG req = GUI_GET_WINDOW_STATION;
+        GUI_GET_WINDOW_STATION_RPL *rpl = Gui_CallProxyEx(
+                    &req, sizeof(ULONG), sizeof(*rpl), FALSE);
+
+        if (rpl) {
+            Dll_Free(rpl);
+            Connected = TRUE;
+        }
+
+        return TRUE;
+    }
+
     //
     // the first win32k service call (i.e. service number >= 0x1000)
     // triggers "thread GUI conversion".  the kernel system service
@@ -1338,8 +1355,6 @@ _FX HWND Gui_CreateWindowExW(
     HINSTANCE hInstance,
     LPVOID lpParam)
 {
-	SetDesktop();
-
     THREAD_DATA *TlsData = Dll_GetTlsData(NULL);
     void *new_WindowName;
     WCHAR *clsnm;
@@ -1475,8 +1490,6 @@ _FX HWND Gui_CreateWindowExA(
     HINSTANCE hInstance,
     LPVOID lpParam)
 {
-	SetDesktop();
-
     THREAD_DATA *TlsData = Dll_GetTlsData(NULL);
     void *new_WindowName;
     UCHAR *clsnm;
@@ -2846,14 +2859,4 @@ _FX BOOLEAN ComDlg32_Init(HMODULE module)
     //}
 
     return TRUE;
-}
-void SetDesktop() {
-	if (SbieApi_QueryConfBool(NULL, "UseSandboxDesktop", FALSE)) {
-		wchar_t* boxName = { L'\0' }, * Temp = L"Desktop_";
-		SbieApi_QueryBoxPath(&boxName, NULL, NULL, NULL, NULL, NULL, NULL);
-		lstrcat(Temp, boxName);
-		HDESK hDesk = OpenDesktopA(Temp, 0, FALSE, GENERIC_ALL);
-		if (hDesk)
-			SetThreadDesktop(hDesk);
-	}
 }

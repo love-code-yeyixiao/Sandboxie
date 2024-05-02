@@ -362,6 +362,8 @@ CSettingsWindow::CSettingsWindow(QWidget* parent)
 
 	connect(ui.cmbFontScale, SIGNAL(currentIndexChanged(int)), this, SLOT(OnChangeGUI()));
 	connect(ui.cmbFontScale, SIGNAL(currentTextChanged(const QString&)), this, SLOT(OnChangeGUI()));
+	connect(ui.chkHide, SIGNAL(stateChanged(int)), this, SLOT(OnOptChanged()));
+
 
 	connect(ui.txtEditor, SIGNAL(textChanged(const QString&)), this, SLOT(OnOptChanged()));
 	m_bRebuildUI = false;
@@ -475,6 +477,7 @@ CSettingsWindow::CSettingsWindow(QWidget* parent)
 		pTmplBtnMenu->addAction(tr("Add %1 Template").arg(CTemplateWizard::GetTemplateLabel((CTemplateWizard::ETemplateType)i)), this, SLOT(OnTemplateWizard()))->setData(i);
 	ui.btnAddTemplate->setPopupMode(QToolButton::MenuButtonPopup);
 	ui.btnAddTemplate->setMenu(pTmplBtnMenu);
+	connect(ui.btnOpenTemplate, SIGNAL(clicked(bool)), this, SLOT(OnOpenTemplate()));
 	connect(ui.btnDelTemplate, SIGNAL(clicked(bool)), this, SLOT(OnDelTemplates()));
 	//
 
@@ -680,7 +683,7 @@ void CSettingsWindow::showTab(const QString& Name, bool bExclusive)
 		}
 	}
 
-	SafeShow(this);
+	CSandMan::SafeShow(this);
 }
 
 void CSettingsWindow::closeEvent(QCloseEvent *e)
@@ -872,7 +875,7 @@ void CSettingsWindow::LoadSettings()
 	ui.chkAutoStart->setChecked(IsAutorunEnabled());
 	if (theAPI->IsConnected()) {
 		if (theAPI->GetUserSettings()->GetBool("SbieCtrl_EnableAutoStart", true)) {
-			if (theAPI->GetUserSettings()->GetText("SbieCtrl_AutoStartAgent", "") != "SandMan.exe")
+			if (theAPI->GetUserSettings()->GetText("SbieCtrl_AutoStartAgent", "").left(11) != "SandMan.exe")
 				ui.chkSvcStart->setCheckState(Qt::PartiallyChecked);
 			else
 				ui.chkSvcStart->setChecked(true);
@@ -905,6 +908,8 @@ void CSettingsWindow::LoadSettings()
 
 	//ui.cmbFontScale->setCurrentIndex(ui.cmbFontScale->findData(theConf->GetInt("Options/FontScaling", 100)));
 	ui.cmbFontScale->setCurrentText(QString::number(theConf->GetInt("Options/FontScaling", 100)));
+	ui.chkHide->setChecked(theConf->GetBool("Options/CoverWindows", false));
+
 
 	ui.txtEditor->setText(theConf->GetString("Options/Editor", "notepad.exe"));
 
@@ -1552,6 +1557,8 @@ void CSettingsWindow::SaveSettings()
 	else if (Scaling > 500)
 		Scaling = 500;
 	theConf->SetValue("Options/FontScaling", Scaling);
+	
+	theConf->SetValue("Options/CoverWindows", ui.chkHide->isChecked());
 
 	theConf->SetValue("Options/Editor", ui.txtEditor->text());
 
@@ -1560,7 +1567,7 @@ void CSettingsWindow::SaveSettings()
 	if (theAPI->IsConnected()) {
 		if (ui.chkSvcStart->checkState() == Qt::Checked) {
 			theAPI->GetUserSettings()->SetBool("SbieCtrl_EnableAutoStart", true);
-			theAPI->GetUserSettings()->SetText("SbieCtrl_AutoStartAgent", "SandMan.exe");
+			theAPI->GetUserSettings()->SetText("SbieCtrl_AutoStartAgent", "SandMan.exe -autorun");
 		}
 		else if (ui.chkSvcStart->checkState() == Qt::Unchecked)
 			theAPI->GetUserSettings()->SetBool("SbieCtrl_EnableAutoStart", false);
@@ -2233,6 +2240,13 @@ void CSettingsWindow::OnTemplateWizard()
 	}
 }
 
+void CSettingsWindow::OnOpenTemplate()
+{
+	QTreeWidgetItem* pItem = ui.treeTemplates->currentItem();
+	if (pItem)
+		OnTemplateDoubleClicked(pItem, 0);
+}
+
 void CSettingsWindow::OnDelTemplates()
 {
 	if (QMessageBox("Sandboxie-Plus", tr("Do you really want to delete the selected local template(s)?"), QMessageBox::Question, QMessageBox::Yes, QMessageBox::No | QMessageBox::Default | QMessageBox::Escape, QMessageBox::NoButton, this).exec() != QMessageBox::Yes)
@@ -2435,14 +2449,9 @@ void CSettingsWindow::OnUpdateData(const QVariantMap& Data, const QVariantMap& P
 	if (Data.isEmpty() || Data["error"].toBool())
 		return;
 
-	QString Version = QString::number(VERSION_MJR) + "." + QString::number(VERSION_MIN) + "." + QString::number(VERSION_REV);
-	int iUpdate = COnlineUpdater::GetCurrentUpdate();
-	if(iUpdate) 
-		Version += QChar('a' + (iUpdate - 1));
-
 	m_UpdateData = Data;
 	QVariantMap Releases = m_UpdateData["releases"].toMap();
-	ui.lblCurrent->setText(tr("%1 (Current)").arg(Version));
+	ui.lblCurrent->setText(tr("%1 (Current)").arg(theGUI->GetVersion(true)));
 	ui.lblStable->setText(CSettingsWindow__MkVersion("stable", Releases));
 	ui.lblPreview->setText(CSettingsWindow__MkVersion("preview", Releases));
 	if(ui.radInsider->isEnabled())
