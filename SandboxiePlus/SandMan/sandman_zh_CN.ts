@@ -522,7 +522,7 @@ increases to 512 bits with the application of Leet (L337) speak modifications, a
     <message>
         <location filename="BoxTransfer.cpp" line="104"/>
         <source>Show sandbox aliases (reads archive configuration)</source>
-        <translation type="unfinished"></translation>
+        <translation>显示沙盒别名（读取存档配置）</translation>
     </message>
     <message>
         <location filename="BoxTransfer.cpp" line="105"/>
