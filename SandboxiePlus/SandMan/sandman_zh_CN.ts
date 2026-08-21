@@ -522,12 +522,12 @@ increases to 512 bits with the application of Leet (L337) speak modifications, a
     <message>
         <location filename="BoxTransfer.cpp" line="104"/>
         <source>Show sandbox aliases (reads archive configuration)</source>
-        <translation type="unfinished"></translation>
+        <translation>显示沙盒别名（读取存档配置）</translation>
     </message>
     <message>
         <location filename="BoxTransfer.cpp" line="105"/>
         <source>Disabled by default because reading aliases requires opening and extracting configuration from every selected archive.</source>
-        <translation type="unfinished"></translation>
+        <translation>由于需要从每个选定的存档中打开并提取配置，读取别名被默认禁用</translation>
     </message>
     <message>
         <location filename="BoxTransfer.cpp" line="112"/>
@@ -588,7 +588,7 @@ increases to 512 bits with the application of Leet (L337) speak modifications, a
     <message>
         <location filename="BoxTransfer.cpp" line="376"/>
         <source>Sandbox name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>沙盒名: %1</translation>
     </message>
     <message>
         <location filename="BoxTransfer.cpp" line="497"/>
@@ -2686,17 +2686,17 @@ Note: The update check is often behind the latest GitHub release to ensure that 
     <message>
         <location filename="Windows/OptionsGeneral.cpp" line="72"/>
         <source>Active snapshot</source>
-        <translation type="unfinished"></translation>
+        <translation>活跃快照</translation>
     </message>
     <message>
         <location filename="Windows/OptionsGeneral.cpp" line="73"/>
         <source>Default snapshot</source>
-        <translation type="unfinished">默认快照</translation>
+        <translation>默认快照</translation>
     </message>
     <message>
         <location filename="Windows/OptionsGeneral.cpp" line="74"/>
         <source>Selects the snapshot restored by SandMan after automatic deletion. The active state may be the empty sandbox rather than a saved snapshot.</source>
-        <translation type="unfinished"></translation>
+        <translation>选择在Sandman执行自动删除用于恢复的快照。活跃状态可以是一个空沙盒而不是一个已保存的快照。</translation>
     </message>
     <message>
         <location filename="Windows/OptionsGeneral.cpp" line="89"/>
@@ -4858,7 +4858,7 @@ This box &lt;a href=&quot;sbie://docs/privacy-mode&quot;&gt;prevents access to a
     <message>
         <location filename="SandManTray.cpp" line="214"/>
         <source>Find sandbox...</source>
-        <translation type="unfinished"></translation>
+        <translation>查找沙盒中……</translation>
     </message>
     <message>
         <location filename="SandManTray.cpp" line="228"/>
@@ -5305,7 +5305,7 @@ No will choose: %2</source>
     <message>
         <location filename="SandManRecovery.cpp" line="314"/>
         <source>Sandbox name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>沙盒名称: %1</translation>
     </message>
     <message>
         <location filename="SandMan.cpp" line="3807"/>
@@ -7232,17 +7232,17 @@ This is a temporary Patreon certificate, valid for 3 months. Once it nears expir
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="349"/>
         <source>Sandbox name</source>
-        <translation type="unfinished"></translation>
+        <translation>沙盒名称</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="350"/>
         <source>Sandbox alias</source>
-        <translation type="unfinished"></translation>
+        <translation>沙盒别名</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="351"/>
         <source>Sandbox alias and name</source>
-        <translation type="unfinished"></translation>
+        <translation>沙盒别名与名称</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="354"/>
