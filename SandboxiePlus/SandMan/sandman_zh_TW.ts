@@ -16,7 +16,7 @@
     <message>
         <location filename="Forms/BoxImageWindow.ui" line="157"/>
         <source>Protect Box Root from access by unsandboxed processes</source>
-        <translation>保護沙箱根目錄不受未沙箱化處理程序存取</translation>
+        <translation>保護沙箱根目錄不受未沙箱化處理程序存取 </translation>
     </message>
     <message>
         <location filename="Forms/BoxImageWindow.ui" line="103"/>
