@@ -10,7 +10,7 @@
 ## 捐款
 
 1. 获取一份[支持者许可证](https://sandboxie-plus.com/go.php?to=sbie-get-cert)  
-一个支持者许可证就像一把“许可密钥”，能解锁专属的新功能，比如[数据保护](https://sandboxie-plus.com/privacy-mode/)或[应用程序隔离](https://sandboxie-plus.com/compartment-mode/)沙盒。更多详情与许可证选项，请参阅[功能对比表](https://github.com/sandboxie-plus/sandboxie-docs/blob/main/docs/Content/FeatureComparison.md)。
+一个支持者许可证就像一把“许可密钥”，能解锁专属的新功能，比如[数据保护](https://sandboxie-plus.com/privacy-mode/)或[应用程序隔离](https://sandboxie-plus.com/compartment-mode/)沙盘。更多详情与许可证选项，请参阅[功能对比表](https://github.com/sandboxie-plus/sandboxie-docs/blob/main/docs/Content/FeatureComparison.md)。
 
 2. 开通 [Patreon 订阅](https://www.patreon.com/DavidXanatos)  
 只要 Patreon 订阅处于有效状态，许可证就持续生效，并解锁全部功能。若你曾是 Patreon 订阅者但已取消订阅，仍可凭累计支持金额申请一份滞留许可证。具体说明请参考[如何续订 Patreon 支持者许可证](https://github.com/sandboxie-plus/Sandboxie/issues/2144)。
